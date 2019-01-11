@@ -5,5 +5,6 @@ public interface Slot {
     void winningSound();
     void losingSound();
     void showPrice();
-    void blink();
+    void drawSlot();
+    void setPosition(float start, float end);
 }

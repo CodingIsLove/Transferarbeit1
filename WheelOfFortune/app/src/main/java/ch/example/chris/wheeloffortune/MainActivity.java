@@ -45,9 +45,6 @@ public class MainActivity extends RobotActivity implements RobotLifecycleCallbac
     /*******************************
      *  Pepper Code                *
      ******************************/
-
-
-
     @Override
     public void onRobotFocusGained(QiContext qiContext) {
         //The robot focus is gained
@@ -85,8 +82,6 @@ public class MainActivity extends RobotActivity implements RobotLifecycleCallbac
     /*******************************
      *  Other Methods              *
      ******************************/
-
-
 
 
 }
