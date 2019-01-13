@@ -1,8 +1,11 @@
 package ch.example.chris.wheeloffortune.Processing;
 
+import android.content.Context;
 import android.os.Environment;
 
-import ch.example.chris.wheeloffortune.SlotFactory.EmptySlot;
+import java.io.IOException;
+
+import ch.example.chris.wheeloffortune.MediaManager.MediaManager;
 import ch.example.chris.wheeloffortune.SlotFactory.Slot;
 import ch.example.chris.wheeloffortune.SlotFactory.SlotFactory;
 import ch.example.chris.wheeloffortune.Utilities.Constants;
@@ -16,19 +19,28 @@ public class Wheel extends PApplet {
     private SlotFactory slotFactory;
     private int delay = Constants.DEFAULT_DELAY_FACTOR;
     private Slot[] slotArray;
-    private int currentPosition = 9;
+    private Context context;
 
 
-
-    public Wheel(){
-        this.slotFactory = new SlotFactory(this);
+    public Wheel(Context context) throws IOException {
+        this.slotFactory = new SlotFactory(this,context);
         this.slotArray = new Slot[12];
 
         // Fill up the Array
         for(int i = 0; i < 12; i++){
-            slotArray[i] = slotFactory.getInstance("EMPTYSLOT");
-            slotArray[i].setPosition(i*Constants.DEFAULT_DEGREE,(i+1)*Constants.DEFAULT_DEGREE);
+
+            if(i <9){
+                slotArray[i] = slotFactory.getInstance("TEXTSLOT");
+                slotArray[i].setPosition(i*Constants.DEFAULT_DEGREE,(i+1)*Constants.DEFAULT_DEGREE);
+            }
+            else {
+                slotArray[i] = slotFactory.getInstance("EMPTYSLOT");
+                slotArray[i].setPosition(i*Constants.DEFAULT_DEGREE,(i+1)*Constants.DEFAULT_DEGREE);
+            }
         }
+
+        MediaManager.getInstance(context).playBackgroundMusic();
+        System.out.println("Wheel:: The sketchpath is: " + sketchPath);
 
     }
 
@@ -42,6 +54,7 @@ public class Wheel extends PApplet {
         backgroundIm = loadImage("background_swisscom.jpg");
         centerPiece = loadImage("swisscom_circular_center.png");
         frameRate = Constants.DEFAULT_FRAME_RATE;
+        smooth(4);  // This will make anti-aliasing
     }
 
     public void draw() {
@@ -70,6 +83,8 @@ public class Wheel extends PApplet {
         //Draw CenterPiece
         image(centerPiece,width/2-60,height/2-60,Constants.WHEEL_CENTER_PIECE_SIZE,Constants.WHEEL_CENTER_PIECE_SIZE);
 
+        //TODO: implement propagation later
+        /*
         //Make next step
         if(delay == 0){
             delay = Constants.DEFAULT_DELAY_FACTOR;
@@ -77,12 +92,15 @@ public class Wheel extends PApplet {
         }else{
             delay--;
         }
+        */
     }
 
+//TODO: This needs to run! We will find a solution for this!
 
-
+    /*
     public void nextStep(){
         slotArray[currentPosition].blink();
         currentPosition = (currentPosition + 1)%12;
     }
+    */
 }

@@ -1,7 +1,6 @@
 package ch.example.chris.wheeloffortune.Utilities;
 
 public class Constants {
-
     /*********************
      *  Numerical Values *
      ********************/
@@ -24,6 +23,10 @@ public class Constants {
     public static final int ARC_Y_COORINATE = DISPLAY_HEIGHT/2;
     public static final int ARC_DIAMETER = INNER_WHEEL_SIZE;
     public static final float DEFAULT_DEGREE = (float)Math.PI/6;
+    public static final float ROTATION_CORRECTION = (float)Math.PI/18;
+    public static final int RADIUS_IMAGE = 250;
+    public static final int DEFAULT_TEXT_SIZE = 40;
+    public static final int RADIUS_TEXT = 300;
 
     // Setup variables
     public static final int DEFAULT_FRAME_RATE = 1;
@@ -31,9 +34,8 @@ public class Constants {
 
 
     /*********************
-     *  String Values *
+     *  String Values    *
      ********************/
-
     // Environment Constants
      static final String QR_CODE_IMAGE_BASE_PATH = "./app/src/main/java/ch/example/chris/wheeloffortune/QRCodesTmp/";
 
@@ -51,5 +53,4 @@ public class Constants {
     public static final int[] COLOR_BLINK_TEXT_SLOT={16,69,139};
     public static final int[] COLOR_DEFAULT_IMAGE_SLOT={187,187,187}; //Swisscom gray
     public static final int[] COLOR_BLINK_IMAGE_SLOT={16,69,139};
-
 }

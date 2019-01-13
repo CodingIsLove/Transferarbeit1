@@ -11,6 +11,8 @@ import com.aldebaran.qi.sdk.QiSDK;
 import com.aldebaran.qi.sdk.RobotLifecycleCallbacks;
 import com.aldebaran.qi.sdk.design.activity.RobotActivity;
 
+import java.io.IOException;
+
 import ch.example.chris.wheeloffortune.Processing.Wheel;
 import processing.android.CompatUtils;
 import processing.android.PFragment;
@@ -30,7 +32,11 @@ public class MainActivity extends RobotActivity implements RobotLifecycleCallbac
         frame.setId(CompatUtils.getUniqueViewId());
         setContentView(frame, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
-        sketch = new Wheel();
+        try {
+            sketch = new Wheel(getApplicationContext());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         PFragment fragment = new PFragment(sketch);
         fragment.setView(frame, this);
     }
@@ -77,7 +83,6 @@ public class MainActivity extends RobotActivity implements RobotLifecycleCallbac
             sketch.onNewIntent(intent);
         }
     }
-
 
     /*******************************
      *  Other Methods              *
