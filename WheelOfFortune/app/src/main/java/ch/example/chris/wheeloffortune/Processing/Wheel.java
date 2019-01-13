@@ -23,7 +23,7 @@ public class Wheel extends PApplet {
 
 
     public Wheel(Context context) throws IOException {
-        this.slotFactory = new SlotFactory(this,context);
+        this.slotFactory = new SlotFactory(this);
         this.slotArray = new Slot[12];
 
         // Fill up the Array
@@ -95,7 +95,14 @@ public class Wheel extends PApplet {
         */
     }
 
-//TODO: This needs to run! We will find a solution for this!
+    @Override
+    public void touchStarted() {
+        super.touchStarted();
+        MediaManager.getInstance(getContext()).mute();
+    }
+
+
+    //TODO: This needs to run! We will find a solution for this!
 
     /*
     public void nextStep(){

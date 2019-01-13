@@ -1,7 +1,4 @@
 package ch.example.chris.wheeloffortune.SlotFactory;
-
-import android.content.Context;
-
 import java.io.IOException;
 
 import ch.example.chris.wheeloffortune.MediaManager.MediaManager;
@@ -16,11 +13,9 @@ public class ImageSlot implements Slot {
     private PImage winIcon;
     private float start = 0 ;
     private float end = Constants.DEFAULT_DEGREE;
-    private Context context;
 
-    public ImageSlot(PApplet sketch, Context context) {
+    public ImageSlot(PApplet sketch) {
         this.sketch = sketch;
-        this.context =context;
     }
 
     @Override
@@ -30,12 +25,12 @@ public class ImageSlot implements Slot {
 
     @Override
     public void winningSound() throws IOException {
-        MediaManager.getInstance(context).playWinningSound();
+        MediaManager.getInstance(sketch.getContext()).playWinningSound();
     }
 
     @Override
     public void losingSound() throws IOException {
-        MediaManager.getInstance(context).playLostSound();
+        MediaManager.getInstance(sketch.getContext()).playLostSound();
     }
 
     @Override

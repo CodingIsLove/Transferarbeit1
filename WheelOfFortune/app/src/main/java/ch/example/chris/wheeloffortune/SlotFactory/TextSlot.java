@@ -1,5 +1,4 @@
 package ch.example.chris.wheeloffortune.SlotFactory;
-import android.content.Context;
 
 import java.io.IOException;
 
@@ -15,13 +14,11 @@ public class TextSlot implements Slot {
     private String content;
     private float start = 0 ;
     private float end = Constants.DEFAULT_DEGREE;
-    private Context context;
 
 
-    public TextSlot(PApplet sketch, Context context) {
+    public TextSlot(PApplet sketch) {
         this.sketch = sketch;
         //TODO: add the text variable
-        this.context = context;
     }
 
     @Override
@@ -31,12 +28,12 @@ public class TextSlot implements Slot {
 
     @Override
     public void winningSound() throws IOException {
-        MediaManager.getInstance(context).playWinningSound();
+        MediaManager.getInstance(sketch.getContext()).playWinningSound();
     }
 
     @Override
     public void losingSound() throws IOException {
-        MediaManager.getInstance(context).playLostSound();
+        MediaManager.getInstance(sketch.getContext()).playLostSound();
     }
 
     @Override

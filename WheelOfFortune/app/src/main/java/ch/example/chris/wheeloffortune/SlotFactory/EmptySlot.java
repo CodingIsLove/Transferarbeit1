@@ -1,7 +1,5 @@
 package ch.example.chris.wheeloffortune.SlotFactory;
 
-import android.content.Context;
-
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -14,11 +12,9 @@ public class EmptySlot implements Slot {
     private float start = 0 ;
     private float end = Constants.DEFAULT_DEGREE;
     private int[] colorScheme = Constants.COLOR_DEFAULT_EMPTY_SLOT;
-    private Context context;
 
-    public EmptySlot(PApplet sketch, Context context) {
+    public EmptySlot(PApplet sketch) {
         this.sketch = sketch;
-        this.context = context;
     }
 
     @Override
@@ -32,12 +28,12 @@ public class EmptySlot implements Slot {
 
     @Override
     public void winningSound() throws IOException {
-        MediaManager.getInstance(context).playWinningSound();
+        MediaManager.getInstance(sketch.getContext()).playWinningSound();
     }
 
     @Override
     public void losingSound() throws IOException {
-        MediaManager.getInstance(context).playLostSound();
+        MediaManager.getInstance(sketch.getContext()).playLostSound();
     }
 
     @Override
