@@ -133,7 +133,6 @@ public class Wheel extends PApplet {
     //TODO: This needs to run! We will find a solution for this!
 
     public void nextStep(){
-
         for(Slot slot : slotArray){
             if(slot.isOn()){
                 slot.blink();
