@@ -30,8 +30,13 @@ public class Constants {
     public static final float COORDINATE_MATCHING_CONSTANT= 2*(float)Math.PI*3/4; //Rotate texts by given constant
 
     // Setup variables
-    public static final int DEFAULT_FRAME_RATE = 1;
-    public static final int DEFAULT_DELAY_FACTOR = 3;
+    public static final int DEFAULT_FRAME_RATE = 10;
+    public static final int DEFAULT_DELAY_FACTOR = 1;
+
+    // Breaking Thresholds
+    public static final int UPPER_MEAN_THRESHOLD = 42;
+    public static final int LOWER_MEAN_THRESHOLD = 3;
+    public static final float DAMPING_FACTOR = 0.15f;
 
 
     /*********************

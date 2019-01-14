@@ -1,5 +1,6 @@
 package ch.example.chris.wheeloffortune.BreakStrategy;
 
 public interface BreakStrategy {
-    float breakStep();
+    int breakStep(int currentValue);
+    boolean hasStoped();
 }

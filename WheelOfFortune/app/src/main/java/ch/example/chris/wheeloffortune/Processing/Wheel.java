@@ -2,9 +2,13 @@ package ch.example.chris.wheeloffortune.Processing;
 
 import android.content.Context;
 import android.os.Environment;
+import android.util.Log;
 
 import java.io.IOException;
 
+import ch.example.chris.wheeloffortune.BreakStrategy.BreakStrategy;
+import ch.example.chris.wheeloffortune.BreakStrategy.LinearBreak;
+import ch.example.chris.wheeloffortune.BreakStrategy.QuadraticBreak;
 import ch.example.chris.wheeloffortune.MediaManager.MediaManager;
 import ch.example.chris.wheeloffortune.SlotFactory.Slot;
 import ch.example.chris.wheeloffortune.SlotFactory.SlotFactory;
@@ -17,11 +21,13 @@ public class Wheel extends PApplet {
     private PImage backgroundIm;
     private PImage centerPiece;
     private SlotFactory slotFactory;
-    private int delay = Constants.DEFAULT_DELAY_FACTOR;
+    private int delay = 3;  // Constants.DEFAULT_DELAY_FACTOR; TODO: Set this back later
     private Slot[] slotArray;
     private Context context;
     private int currentPosition;
     private int counter;
+    private String TAG = "Wheel:: ";
+    private BreakStrategy breakStrategy;
 
 
     public Wheel(Context context) throws IOException {
@@ -30,6 +36,7 @@ public class Wheel extends PApplet {
         this.context = context;
         this.currentPosition=0;
         this.counter = 0;
+        this.breakStrategy = new LinearBreak();  //Insert different break strategies here
 
         // Fill up the Array
         boolean flagOn = true;
@@ -75,6 +82,9 @@ public class Wheel extends PApplet {
         //Draw Background
         background(backgroundIm);
 
+        //Draw Mute button
+
+
         //Draw Base Ellipse
         strokeWeight(Constants.WHEEL_BORDER);
         fill(255, 255, 255);
@@ -90,25 +100,33 @@ public class Wheel extends PApplet {
 
         //Draw CenterPiece
         image(centerPiece,width/2-60,height/2-60,Constants.WHEEL_CENTER_PIECE_SIZE,Constants.WHEEL_CENTER_PIECE_SIZE);
+        strokeWeight(4);
+        noFill();
+        ellipse(width/2,height/2,120,120);
 
 
         /********************************
          * Handle Blinking and methods  *
          ********************************/
-        if(counter == Constants.DEFAULT_DELAY_FACTOR){
+        if(counter >= delay){
             nextStep();
             counter = 0;
+            delay = breakStrategy.breakStep(delay);
         }else{
             counter++;
         }
 
+
+        //TODO: On the following lines i could use the break algorithm
+        Log.d(TAG,"Current delayfactor is: " + delay);
         clear();
     }
 
     @Override
     public void touchStarted() {
         super.touchStarted();
-        MediaManager.getInstance(getContext()).mute();
+        //MediaManager.getInstance(getContext()).mute();
+        delay = Constants.DEFAULT_DELAY_FACTOR;
     }
 
 
