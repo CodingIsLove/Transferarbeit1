@@ -50,6 +50,7 @@ public class MediaManager {
         }
         backgroundMusic.seekTo(0);
         backgroundMusic.start();
+        backgroundMusic.setLooping(true);
     }
 
     public void playLostSound() throws IOException {

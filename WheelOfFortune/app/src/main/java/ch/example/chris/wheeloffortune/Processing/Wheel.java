@@ -28,6 +28,7 @@ public class Wheel extends PApplet {
     private int counter;
     private String TAG = "Wheel:: ";
     private BreakStrategy breakStrategy;
+    private int upperThreshold = 43;
 
 
     public Wheel(Context context) throws IOException {
@@ -56,7 +57,7 @@ public class Wheel extends PApplet {
                 slotArray[i].setPosition(i*Constants.DEFAULT_DEGREE,(i+1)*Constants.DEFAULT_DEGREE);
             }
         }
-        //MediaManager.getInstance(context).playBackgroundMusic();   //TODO: uncommment to release sound bibliothek
+        MediaManager.getInstance(context).playBackgroundMusic();   //TODO: uncommment to release sound bibliothek
         System.out.println("Wheel:: The sketchpath is: " + sketchPath);
     }
 
@@ -105,28 +106,49 @@ public class Wheel extends PApplet {
         ellipse(width/2,height/2,120,120);
 
 
-        /********************************
-         * Handle Blinking and methods  *
-         ********************************/
+        /**********************************************
+         * Handle Blinking, methods and Winstatement  *
+         **********************************************/
         if(counter >= delay){
-            nextStep();
+            System.out.println("Counter is:" +counter);
+            System.out.println("Delay is: "+ delay);
             counter = 0;
-            delay = breakStrategy.breakStep(delay);
+            if(delay !=0){
+                nextStep();
+            }
+            if(delay >= upperThreshold){
+                delay = Integer.MAX_VALUE;
+                if(!slotArray[currentPosition].isPrice()){
+                    try {
+                        MediaManager.getInstance(getContext()).playWinningSound();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }else{
+                    try {
+                        MediaManager.getInstance(getContext()).playLostSound();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }else{
+                delay = breakStrategy.breakStep(delay);
+            }
+
         }else{
             counter++;
         }
 
-
-        //TODO: On the following lines i could use the break algorithm
-        Log.d(TAG,"Current delayfactor is: " + delay);
-        clear();
     }
 
     @Override
     public void touchStarted() {
         super.touchStarted();
         //MediaManager.getInstance(getContext()).mute();
-        delay = Constants.DEFAULT_DELAY_FACTOR;
+        delay = (int)Math.random()*5 +4;
+        upperThreshold = (int)Math.random()*4 + 10;
+
+
     }
 
 

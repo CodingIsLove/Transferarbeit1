@@ -39,6 +39,11 @@ public class TextSlot implements Slot {
 
     }
 
+    @Override
+    public boolean isPrice() {
+        return true;
+    }
+
 
     @Override
     public void drawSlot() {

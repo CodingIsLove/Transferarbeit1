@@ -35,6 +35,11 @@ public class EmptySlot implements Slot {
     }
 
     @Override
+    public boolean isPrice() {
+        return false;
+    }
+
+    @Override
     public void drawSlot() {
         sketch.stroke(Constants.DECORATION_LAMP_STROKE_WEIGHT);
         sketch.fill(colorScheme[0],colorScheme[1],colorScheme[2]);

@@ -6,11 +6,11 @@ public class LinearBreak implements BreakStrategy {
 
     @Override
     public int breakStep(int currentValue) {
-        return ++currentValue;
+        return currentValue+3;
     }
 
     @Override
-    public boolean hasStoped() {
+    public boolean hasStopped() {
         return false;
     }
 

@@ -10,7 +10,7 @@ public class QuadraticBreak implements BreakStrategy {
     }
 
     @Override
-    public boolean hasStoped() {
+    public boolean hasStopped() {
         return false;
     }
 }

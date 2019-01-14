@@ -37,6 +37,11 @@ public class ImageSlot implements Slot {
 
     }
 
+    @Override
+    public boolean isPrice() {
+        return true;
+    }
+
 
     @Override
     public void drawSlot() {

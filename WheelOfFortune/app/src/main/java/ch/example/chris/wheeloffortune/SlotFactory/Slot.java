@@ -6,6 +6,7 @@ public interface Slot {
     void winningSound() throws IOException;
     void losingSound() throws IOException;
     void showPrice();
+    boolean isPrice();
     void drawSlot();
     void setPosition(float start, float end);
     void blink();
