@@ -12,19 +12,12 @@ public class EmptySlot implements Slot {
     private float start = 0 ;
     private float end = Constants.DEFAULT_DEGREE;
     private int[] colorScheme = Constants.COLOR_DEFAULT_EMPTY_SLOT;
+    private boolean isOn = false;
 
     public EmptySlot(PApplet sketch) {
         this.sketch = sketch;
     }
 
-    @Override
-    public void toggleLight() {
-        if(Arrays.equals(colorScheme,Constants.COLOR_DEFAULT_EMPTY_SLOT)){
-            colorScheme = Constants.COLOR_BLINK_EMPTY_SLOT;
-        }else{
-            colorScheme = Constants.COLOR_DEFAULT_EMPTY_SLOT;
-        }
-    }
 
     @Override
     public void winningSound() throws IOException {
@@ -52,6 +45,22 @@ public class EmptySlot implements Slot {
     public void setPosition(float start, float end){
             this.start = start;
             this.end = end;
+    }
+
+    @Override
+    public void blink() {
+        if(colorScheme == Constants.COLOR_DEFAULT_EMPTY_SLOT){
+            this.colorScheme = Constants.COLOR_BLINK_EMPTY_SLOT;
+            this.isOn = true;
+        }else{
+            this.colorScheme = Constants.COLOR_DEFAULT_EMPTY_SLOT;
+            this.isOn = false;
+        }
+    }
+
+    @Override
+    public boolean isOn() {
+        return isOn;
     }
 
 

@@ -20,28 +20,37 @@ public class Wheel extends PApplet {
     private int delay = Constants.DEFAULT_DELAY_FACTOR;
     private Slot[] slotArray;
     private Context context;
+    private int currentPosition;
+    private int counter;
 
 
     public Wheel(Context context) throws IOException {
         this.slotFactory = new SlotFactory(this);
         this.slotArray = new Slot[12];
+        this.context = context;
+        this.currentPosition=0;
+        this.counter = 0;
 
         // Fill up the Array
+        boolean flagOn = true;
         for(int i = 0; i < 12; i++){
+            if(i % 2 == 0){
+                if(flagOn){
+                    slotArray[i] = slotFactory.getInstance("TEXTSLOT");
+                    slotArray[i].setPosition(i*Constants.DEFAULT_DEGREE,(i+1)*Constants.DEFAULT_DEGREE);
+                }else{
+                    slotArray[i] = slotFactory.getInstance("IMAGESLOT");
+                    slotArray[i].setPosition(i*Constants.DEFAULT_DEGREE,(i+1)*Constants.DEFAULT_DEGREE);
+                }
+                flagOn= !flagOn;
 
-            if(i <9){
-                slotArray[i] = slotFactory.getInstance("TEXTSLOT");
-                slotArray[i].setPosition(i*Constants.DEFAULT_DEGREE,(i+1)*Constants.DEFAULT_DEGREE);
-            }
-            else {
+            } else{
                 slotArray[i] = slotFactory.getInstance("EMPTYSLOT");
                 slotArray[i].setPosition(i*Constants.DEFAULT_DEGREE,(i+1)*Constants.DEFAULT_DEGREE);
             }
         }
-
-        MediaManager.getInstance(context).playBackgroundMusic();
+        //MediaManager.getInstance(context).playBackgroundMusic();   //TODO: uncommment to release sound bibliothek
         System.out.println("Wheel:: The sketchpath is: " + sketchPath);
-
     }
 
 
@@ -54,11 +63,15 @@ public class Wheel extends PApplet {
         backgroundIm = loadImage("background_swisscom.jpg");
         centerPiece = loadImage("swisscom_circular_center.png");
         frameRate = Constants.DEFAULT_FRAME_RATE;
-        smooth(4);  // This will make anti-aliasing
+        smooth(8);  // This will make anti-aliasing
     }
 
     public void draw() {
 
+
+        /*******************
+         * Draw the wheel  *
+         *******************/
         //Draw Background
         background(backgroundIm);
 
@@ -68,31 +81,28 @@ public class Wheel extends PApplet {
         ellipse(width/2,height/2, Constants.WHEEL_SIZE,Constants.WHEEL_SIZE);
         strokeWeight(Constants.DEFAULT_STROKE_WEIGHT);
 
-
+        //TODO: write a Loop to draw the circle Sections
         // Draw all the Slots
         for(int i = 0; i < 12; i++){
             slotArray[i].drawSlot();
         }
 
 
-        //Draw Slots
-
-        //TODO: write a Loop to draw the circle Sections
-
-
         //Draw CenterPiece
         image(centerPiece,width/2-60,height/2-60,Constants.WHEEL_CENTER_PIECE_SIZE,Constants.WHEEL_CENTER_PIECE_SIZE);
 
-        //TODO: implement propagation later
-        /*
-        //Make next step
-        if(delay == 0){
-            delay = Constants.DEFAULT_DELAY_FACTOR;
+
+        /********************************
+         * Handle Blinking and methods  *
+         ********************************/
+        if(counter == Constants.DEFAULT_DELAY_FACTOR){
             nextStep();
+            counter = 0;
         }else{
-            delay--;
+            counter++;
         }
-        */
+
+        clear();
     }
 
     @Override
@@ -104,10 +114,14 @@ public class Wheel extends PApplet {
 
     //TODO: This needs to run! We will find a solution for this!
 
-    /*
     public void nextStep(){
+
+        for(Slot slot : slotArray){
+            if(slot.isOn()){
+                slot.blink();
+            }
+        }
         slotArray[currentPosition].blink();
         currentPosition = (currentPosition + 1)%12;
     }
-    */
 }

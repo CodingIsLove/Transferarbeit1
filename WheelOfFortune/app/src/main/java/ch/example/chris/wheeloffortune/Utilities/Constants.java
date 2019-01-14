@@ -16,7 +16,7 @@ public class Constants {
    public static final int WHEEL_BORDER = 4;
    public static final int DEFAULT_STROKE_WEIGHT = 1;
    public static final int DECORATION_LAMP_STROKE_WEIGHT = 2;
-   public static final int DECORATION_LAMP_DIAMETER = 30;
+   public static final int DECORATION_LAMP_DIAMETER = 30;  //TODO: Delete, if no lamps added
 
    // Slots
     public static final int ARC_X_COORDINATE = DISPLAY_WIDTH/2;
@@ -27,10 +27,11 @@ public class Constants {
     public static final int RADIUS_IMAGE = 250;
     public static final int DEFAULT_TEXT_SIZE = 40;
     public static final int RADIUS_TEXT = 300;
+    public static final float COORDINATE_MATCHING_CONSTANT= 2*(float)Math.PI*3/4; //Rotate texts by given constant
 
     // Setup variables
     public static final int DEFAULT_FRAME_RATE = 1;
-    public static final int DEFAULT_DELAY_FACTOR = 5;
+    public static final int DEFAULT_DELAY_FACTOR = 3;
 
 
     /*********************
@@ -47,10 +48,10 @@ public class Constants {
     /*********************
      *  Color Arrays     *
      ********************/
-    public static final int[] COLOR_DEFAULT_EMPTY_SLOT = {16,69,139};  //Swisscom dark blue
-    public static final int [] COLOR_BLINK_EMPTY_SLOT = {17,170,255};
-    public static final int[] COLOR_DEFAULT_TEXT_SLOT ={221,17,34};  //Swisscom red
-    public static final int[] COLOR_BLINK_TEXT_SLOT={16,69,139};
-    public static final int[] COLOR_DEFAULT_IMAGE_SLOT={187,187,187}; //Swisscom gray
-    public static final int[] COLOR_BLINK_IMAGE_SLOT={16,69,139};
+    public static final int[] COLOR_DEFAULT_EMPTY_SLOT = {0, 17, 85};  //Swisscom dark blue
+    public static final int [] COLOR_BLINK_EMPTY_SLOT = {0, 40, 204};
+    public static final int[] COLOR_DEFAULT_TEXT_SLOT ={221, 17, 34};  //Swisscom red
+    public static final int[] COLOR_BLINK_TEXT_SLOT={255, 48, 65};
+    public static final int[] COLOR_DEFAULT_IMAGE_SLOT={17, 170, 255}; //Swisscom gray
+    public static final int[] COLOR_BLINK_IMAGE_SLOT={181, 228, 255};
 }
